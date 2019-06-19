@@ -1,3 +1,5 @@
+
+
 $(document).ready( function () {
   
  $('#plan').on('change', function() {
@@ -17,16 +19,16 @@ $(document).ready( function () {
 
    $('#price').text(priceText)
  });
-
+ 
  function updateTotal() {
   var total = 0;
 
-  // var entries = $('.entry')
+  var entries = $('.entry')
 
-  // if (entries.length)
-  //   $('#empty').show();
-  // else
-  //   $('#empty').hide();
+  if (entries.length)
+    $('#empty').show();
+  else
+    $('#empty').hide();
 
   $('.entry').each( function(index, entry) {
     var data = $(entry).data();
@@ -35,20 +37,19 @@ $(document).ready( function () {
     switch(installment) {
       case 'monthly':
         total += price;
+        $('#total').text('$' + total);
         break;
       case 'quarterly':
         total += price * 4;
+        $('#total').text('$' + total);
         break;
       case 'yearly':
         total += price * 12;
+        $('#total').text('$' + total);
         break;
     }
   })
-
-  $('#total').text('$' + total);
 }
-});
-
 
 $('#add').on('click', function() {
   var plan = $('#plan')
@@ -57,7 +58,7 @@ $('#add').on('click', function() {
   var inCart = $('#in_cart');
   var numeric = price.replace(/[[A-Za-z$\/\s]/g, '');
   var data = 'data-price="' + numeric + '" data-plan="' + installment + '"';
-  inCart.append('<li>' + installment + ' - ' + price + '<button class="remove">X</button></li>')
+  inCart.append('<li class="entry"' + data + '>' + installment + ' - ' + price + '<button class="remove">X</button></li>')
   updateTotal();
 });
 
@@ -68,6 +69,7 @@ $(document).on('click', '.remove', function() {
     updateTotal();
   });
 });
+
 
 $('#display_cart').on('click', function() {
   var cart = $('#cart');
@@ -97,3 +99,5 @@ $('#purchase').on('click', function() {
       borderWidth: "10px"
     }, 1500 );
   });
+
+});
